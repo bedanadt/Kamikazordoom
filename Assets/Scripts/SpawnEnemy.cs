@@ -28,6 +28,7 @@ public class SpawnEnemy : MonoBehaviour {
             if (m_ElapsedTime < m_NextEnemy)
                 return;
             m_ElapsedTime = 0.0f;
+            Spawn();
             m_SpawnedEnemies++;
             if(m_SpawnedEnemies >= m_Enemy)
             {
@@ -36,13 +37,12 @@ public class SpawnEnemy : MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter2D(Collision2D collider)
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Mah oooii");
-//        if (collider.gameObject.tag == "Player")
-//        {
-//            m_SpawningEnemy = true;
-//        }
+        if (collider.gameObject.tag == "Player")
+        {
+            m_SpawningEnemy = true;
+        }
     }
 
     void Spawn()

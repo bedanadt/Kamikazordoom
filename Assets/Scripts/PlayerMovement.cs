@@ -16,6 +16,10 @@ public class PlayerMovement : MonoBehaviour
         m_Transform = GetComponent<Transform>();
     }
 
+//    void Start()
+//    {
+//        scrollingspeed = GameObject.Find("Manager").GetComponent<GameManager>().m_scrollvelocity;
+//    }
 
     // Update is called once per frame
     void Update()
@@ -31,11 +35,5 @@ public class PlayerMovement : MonoBehaviour
 
         m_Rigidbody.velocity = movement;
     }
-
-    void OnTriggerEnter2D(Collision2D collider)
-    {
-        if (collider.gameObject.tag == "Spawn")
-            Debug.Log("Mah oooii");
-
-    }
 }
+
