@@ -18,7 +18,6 @@ public class EnemyShipMovement : MonoBehaviour {
     public void FixedUpdate()
     {
         y = Mathf.Sin(Time.time * m_velocity_sine);
-        //transform.localPosition = new Vector3(x * Time.deltaTime, y * m_limit, transform.localPosition.z);
         transform.Translate(new Vector3(horizontal_speed, y * m_limit, 0)*Time.deltaTime);
 
     }
