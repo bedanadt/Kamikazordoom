@@ -6,8 +6,8 @@ public class EnemyShipMovement : MonoBehaviour {
     [SerializeField]
     private float horizontal_speed = -3f;
 
-    private float x;
     private float y;
+    private Transform m_transform;
 
     [SerializeField]
     private float m_velocity_sine = 2;
@@ -15,10 +15,23 @@ public class EnemyShipMovement : MonoBehaviour {
     [SerializeField]
     private float m_limit = 5;
 
+    private float PersonalTimer;
+
+    void Awake()
+    {
+        m_transform = GetComponentInChildren<Transform>();
+    }
+
+    public void Update()
+    {
+        PersonalTimer += Time.deltaTime;
+    }
+
     public void FixedUpdate()
     {
-        y = Mathf.Sin(Time.time * m_velocity_sine);
-        transform.Translate(new Vector3(horizontal_speed, y * m_limit, 0)*Time.deltaTime);
+        y = Mathf.Sin(PersonalTimer * m_velocity_sine);
+        m_transform.Translate(new Vector3(horizontal_speed, y * m_limit, 0)*Time.deltaTime);
+        
 
     }
 }

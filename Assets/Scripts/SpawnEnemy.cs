@@ -3,27 +3,31 @@ using System.Collections;
 
 public class SpawnEnemy : MonoBehaviour {
     [SerializeField]
-    private int m_NextEnemy = 1;
+    private float m_NextEnemy = 1;
     [SerializeField]
     private int m_Enemy = 3;
     [SerializeField]
     private GameObject Inimigo;
 
+    private CameraMovement CameraPositions;
     private int m_SpawnedEnemies = 0;
-    private Transform m_Transform;
     private bool m_SpawningEnemy = false;
+
+    private float RandomY;
 
     private float m_ElapsedTime = 0.0f;
      
 	// Use this for initialization
 	void Start () {
-        m_Transform = GetComponent<Transform>();
-	}
+        CameraPositions = Camera.main.GetComponent<CameraMovement>();
+        RandomY = Random.Range(CameraPositions.yMin, CameraPositions.yMax);
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        if(m_SpawningEnemy)
-        { 
+        if (CameraPositions.xMax > transform.position.x) m_SpawningEnemy = true;
+        if (m_SpawningEnemy)
+        {            
             m_ElapsedTime += Time.deltaTime;
             if (m_ElapsedTime < m_NextEnemy)
                 return;
@@ -32,22 +36,15 @@ public class SpawnEnemy : MonoBehaviour {
             m_SpawnedEnemies++;
             if(m_SpawnedEnemies >= m_Enemy)
             {
-                m_SpawningEnemy = false;
+                Destroy(gameObject);
             }
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (collider.gameObject.tag == "Player")
-        {
-            m_SpawningEnemy = true;
+            Debug.Log(RandomY);
         }
     }
 
     void Spawn()
     {
-        Instantiate(Inimigo, m_Transform.position, Quaternion.identity);
+        Instantiate(Inimigo, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
     }
 }
 
