@@ -28,7 +28,7 @@ public class Shoot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {     
-	    if(Input.GetButton("Fire1") && Time.time > nextFire && CanShoot)
+	    if(Input.GetButton("Fire1") && Time.time > nextFire && CanShoot && Ammunition > 0)
         {
             isShooting = true;
             GameObject clone = Instantiate(m_Bala, transform.position, transform.rotation) as GameObject;

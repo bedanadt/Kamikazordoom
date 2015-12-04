@@ -10,8 +10,6 @@ public class EnemyShipFire : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         NextTime = Time.time + NextFire;
-
-        variavel = new Quaternion(transform.rotation.w, transform.rotation.x, transform.rotation.y, 1f);
 	}
    
 	
@@ -19,8 +17,7 @@ public class EnemyShipFire : MonoBehaviour {
 	void Update () {
 	    if (Time.time > NextTime)
         {
-            Debug.Log(transform.rotation.z);
-            GameObject clone = Instantiate(m_Bala, transform.position, variavel) as GameObject;
+            GameObject clone = Instantiate(m_Bala, transform.position, transform.rotation) as GameObject;
             NextTime = Time.time + NextFire;
         }
 	}
