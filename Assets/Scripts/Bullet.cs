@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour {
     private Transform m_Transform;
     private Vector2 direction;
 
-    private float offsetDestroy = 20f;
+    private float offsetDestroy = 2f;
 
     private CameraMovement CameraPositions;
 
