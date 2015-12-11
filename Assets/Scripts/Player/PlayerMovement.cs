@@ -25,8 +25,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float inputX = Input.GetAxis("Horizontal");
-        float inputY = Input.GetAxis("Vertical");
+        //float inputX = Input.GetAxis("Horizontal");
+        //float inputY = Input.GetAxis("Vertical");
+        float inputX = Input.acceleration.x * 2;
+        float inputY = Input.acceleration.y * 2;
 
         if ((transform.position.x < m_Camera.xMin && inputX < 0) || (transform.position.x > m_Camera.xMax && inputX > 0))
         {

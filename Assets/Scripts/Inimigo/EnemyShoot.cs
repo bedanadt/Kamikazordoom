@@ -20,6 +20,7 @@ public class EnemyShoot : MonoBehaviour {
             Destroy(gameObject);
             Instantiate(Gerenciador.explosion, transform.position, transform.rotation);
             Destroy(collision.gameObject);
+            Gerenciador.SendMessage("EMorreu");
         }
     }
 }
