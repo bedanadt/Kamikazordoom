@@ -30,7 +30,7 @@ public class Shoot : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        Municao = GameObject.Find("HP Bar").GetComponent<Slider>();
+        Municao = GameObject.Find("AmmunitionBar").GetComponent<Slider>();
         Municao.maxValue = totalAmmunition;
         Ammunition = totalAmmunition;
     }

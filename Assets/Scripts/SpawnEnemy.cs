@@ -15,21 +15,18 @@ public class SpawnEnemy : MonoBehaviour {
 
     private float RandomY;
     private bool generated = false;
-
     private float m_ElapsedTime = 0.0f;
-
      
 	// Use this for initialization
 	void Start () {
-        CameraPositions = Camera.main.GetComponent<CameraMovement>();
-        
+        CameraPositions = Camera.main.GetComponent<CameraMovement>();       
     }
 	
 	// Update is called once per frame
 	void Update () {
         if (!generated)
         {
-            RandomY = Random.Range(CameraPositions.yMin+3f, CameraPositions.yMax-3f);
+            RandomY = Random.Range(CameraPositions.yMin+1f, CameraPositions.yMax-1f);
             generated = true;
         }
 
@@ -46,13 +43,11 @@ public class SpawnEnemy : MonoBehaviour {
             {
                 Destroy(gameObject);
             }
-            Debug.Log(RandomY);
         }
     }
 
     void Spawn()
     {
-        Instantiate(Inimigo, new Vector3(CameraPositions.xMax+1, RandomY, transform.position.z), Quaternion.identity);
+        Instantiate(Inimigo, new Vector3(CameraPositions.xMax, RandomY, transform.position.z), Quaternion.identity);
     }
 }
-
