@@ -10,8 +10,7 @@ public class PlayerCollision : MonoBehaviour {
 	}
 	void OnCollisionEnter2D(Collision2D collision)
 	{
-		Debug.Log ("Estou Aqui");
-		if (collision.gameObject.tag == "Enemy")
+		if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Bullet")
 		{
 			Destroy(gameObject);
 			Instantiate(Gerenciador.explosion, transform.position, transform.rotation);

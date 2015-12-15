@@ -9,7 +9,7 @@ public class EnemyShipFire : MonoBehaviour {
     private float NextTime = 0f;
 	// Use this for initialization
 	void Start () {
-        NextTime = Time.time + NextFire;
+        NextTime = Time.time + Random.Range(NextFire, NextFire+1);
 	}
    
 	

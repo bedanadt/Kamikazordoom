@@ -2,13 +2,16 @@
 using System.Collections;
 
 public class CameraMovement : MonoBehaviour {
-        public float xMin;
-        public float xMax;
-        public float yMin;
-        public float yMax;
-        public float cameraheight;
-        public float camerawidth;
-        public Vector3 initialpoint;
+    public float xMin;
+    public float xMax;
+    public float yMin;
+    public float yMax;
+
+    public float cameraheight;
+    public float camerawidth;
+
+    public Vector3 initialpoint;
+
 	public float middleY;
 	public float middleX;
     // Update is called once per frame

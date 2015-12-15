@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour {
         {
             Application.LoadLevel("Gameplay");
         }
-		if (m_CameraPosition.xMin > Boss.transform.position.x - 10) {
+		if (m_CameraPosition.xMin > Boss.transform.position.x - 15) {
 			MoveFront = Vector3.zero;
 			Boss.GetComponent<SineMovement>().enabled = true;
 			Boss.GetComponent<Core>().enabled = true;

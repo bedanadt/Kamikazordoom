@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         m_Camera = Camera.main.GetComponent<CameraMovement>();
+        
     }
 
     // Update is called once per frame

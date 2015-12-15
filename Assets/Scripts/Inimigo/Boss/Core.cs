@@ -52,7 +52,7 @@ public class Core : MonoBehaviour {
         IsShooting = true;
         for (int i = 0; i < Objetos.Length; i++)
         {
-            Objetos[i].GetComponent<BossWeapon>().SendMessage("Shoot");
+            Objetos[i].GetComponent<Weapon>().SendMessage("Shoot");
             yield return new WaitForSeconds(ShootCD);
         }
         IsShooting = false;

@@ -7,6 +7,7 @@ public class SineMovement : MonoBehaviour
     public float frequency = 0.5f;
     private float _frequency;
     private float phase = 0.0f;
+    private float localY;
     private Transform trans;
 
 	public float CustomTimer = 0f;
@@ -15,6 +16,7 @@ public class SineMovement : MonoBehaviour
     {
         _frequency = frequency;
         trans = transform;
+        localY = trans.position.y;
     }
 
     void Update()
@@ -24,8 +26,8 @@ public class SineMovement : MonoBehaviour
             CalcNewFreq();
 
         Vector3 v3 = trans.position;
-        v3.y = Mathf.Sin(CustomTimer * _frequency + phase) * amplitude;
-        trans.localPosition = v3;
+        v3.y = Mathf.Sin(CustomTimer * _frequency + phase) * amplitude + localY;
+        trans.position = v3;
     }
 
     void CalcNewFreq()

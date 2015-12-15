@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BossWeapon : MonoBehaviour {
+public class Weapon : MonoBehaviour {
     [SerializeField]
     private GameObject Bullet;
 
