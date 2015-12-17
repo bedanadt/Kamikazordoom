@@ -8,7 +8,12 @@ public class GameManager : MonoBehaviour {
 	private Transform m_PlayerMovimentacao;
 	private Transform m_CameraMovimentacao;
 
-	private float bossState;
+    private bool Boosted = false;
+    private float BoostedSpeed = 2f;
+    private float TimeBoosted;
+    private float TimeBoostedOff = 5;
+
+    private float bossState;
 
 	private float offsetDestroy = 1f;
 
@@ -27,15 +32,33 @@ public class GameManager : MonoBehaviour {
 
 		m_PlayerMovimentacao = GameObject.FindGameObjectWithTag ("Player").GetComponent<Transform> ();
 		m_CameraMovimentacao = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<Transform> ();
-		MoveFront = new Vector3(m_scrollvelocity, 0, 0);
+        MoveFront = new Vector3(m_scrollvelocity, 0, 0);
 	}
 	
+    void Update()
+    {
+        if (Boosted && Time.time > TimeBoostedOff)
+        {
+            Boosted = false;
+        }
+    }
+
 	// Update is called once per frame
 	void FixedUpdate () {
         if (transform_spawners) transform_spawners.Translate(new Vector3(-m_scrollvelocity, 0, 0) * Time.deltaTime);
-		if (m_PlayerMovimentacao) m_PlayerMovimentacao.Translate (MoveFront * Time.deltaTime);
-		if (m_CameraMovimentacao) m_CameraMovimentacao.Translate (MoveFront * Time.deltaTime);
-        if(!playerAlive)
+
+        if (Boosted)
+        {
+            m_PlayerMovimentacao.Translate(MoveFront * BoostedSpeed * Time.deltaTime);
+            m_CameraMovimentacao.Translate(MoveFront * BoostedSpeed * Time.deltaTime);
+        }
+        else
+        {
+            m_PlayerMovimentacao.Translate(MoveFront * Time.deltaTime);
+            m_CameraMovimentacao.Translate(MoveFront * Time.deltaTime);
+        }
+        //if (m_EnergyBlaster) m_EnergyBlaster.Translate(MoveFront * Time.deltaTime); 
+        if (!playerAlive)
         {
             Application.LoadLevel("Gameplay");
         }
@@ -59,5 +82,16 @@ public class GameManager : MonoBehaviour {
     void EMorreu()
     {
         playerAlive = false;
+    }
+
+    void BoostSpeedTrigger()
+    {
+        Boosted = true;
+        TimeBoostedOff = Time.time + TimeBoosted;
+    }
+
+    public static GameObject GetExplosion()
+    {
+        return (GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().explosion);
     }
 }

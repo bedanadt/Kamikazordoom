@@ -18,6 +18,11 @@ public class Shoot : MonoBehaviour {
     private bool CanShoot = true;
     private bool isShooting = false;
 
+    [SerializeField]
+    private float TimeInfinity = 3f;
+    private bool InfinityShoot = false;
+    private float InfinityTimer = 0;
+
     private float GenericTimer = 0;
 
     private bool ChargingRateGenerated = false;
@@ -74,6 +79,16 @@ public class Shoot : MonoBehaviour {
         {
             CanShoot = true;
         }
+        if (InfinityShoot)
+        {
+            Ammunition = totalAmmunition;
+            InfinityTimer += Time.deltaTime;
+            if (InfinityTimer >= TimeInfinity)
+            {
+                InfinityShoot = false;
+                InfinityTimer = 0;
+            }
+        }
 	}
 
     void UIShooting()
@@ -83,5 +98,10 @@ public class Shoot : MonoBehaviour {
     void UINotShooting()
     {
         isShooting = false;
+    }
+
+    void TriggerInfiniteShoot()
+    {
+        InfinityShoot = true;
     }
 }

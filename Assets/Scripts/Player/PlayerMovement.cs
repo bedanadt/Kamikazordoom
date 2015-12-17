@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 movement;
     private Rigidbody2D m_Rigidbody;
 
+    float inputX;
+    float inputY;
+
     private CameraMovement m_Camera;
 
     // Use this for initialization
@@ -26,10 +29,17 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float inputX = Input.GetAxis("Horizontal");
-        float inputY = Input.GetAxis("Vertical");
-        //float inputX = Input.acceleration.x * 2;
-        //float inputY = Input.acceleration.y * 2;
+#if UNITY_ANDROID
+        inputX = Input.acceleration.x * 2;
+        inputY = Input.acceleration.y * 2;
+#endif
+
+#if UNITY_EDITOR
+        inputX = Input.GetAxis("Horizontal");
+        inputY = Input.GetAxis("Vertical");
+#endif
+
+
 
         if ((transform.position.x < m_Camera.xMin && inputX < 0) || (transform.position.x > m_Camera.xMax && inputX > 0))
         {

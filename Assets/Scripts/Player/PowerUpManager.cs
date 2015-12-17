@@ -5,10 +5,15 @@ using System.Collections;
 public class PowerUpManager : MonoBehaviour {
     public bool[] Powerup;
 	// Use this for initialization
-    public float TempoEscudo;
-    public float VelocidadeLimpaTela;
-    public float TempoTiro;
-    public float TempoBoost;
+
+    [SerializeField]
+    private GameObject EnergyBlaster;
+    [SerializeField]
+    private GameObject Shield;
+
+    private GameManager Gerenciador;
+    private Shoot PlayerShoot;
+    private PlayerCollision PlayerCollision;
 
     private Image btn_LimpaTela;
     private Image btn_Escudo;
@@ -17,20 +22,23 @@ public class PowerUpManager : MonoBehaviour {
 
     void Start () {
         Powerup = new bool[4];
-        Powerup[0] = false; //Limpa tela
-        Powerup[1] = false; //Escudo
-        Powerup[2] = false; //Tiro infinito
-        Powerup[3] = false; //Invulnerabilidade
+        Powerup[0] = true; //Limpa tela
+        Powerup[1] = true; //Escudo
+        Powerup[2] = true; //Tiro infinito
+        Powerup[3] = true; //Invulnerabilidade
         
         btn_LimpaTela = GameObject.Find("btn_PowerUp_0").GetComponent<Image>();
         btn_Escudo = GameObject.Find("btn_PowerUp_1").GetComponent<Image>();
         btn_TiroInfinito = GameObject.Find("btn_PowerUp_2").GetComponent<Image>();
         btn_Boost = GameObject.Find("btn_PowerUp_3").GetComponent<Image>();
+
+        Gerenciador = GameObject.Find("GameManager").GetComponent<GameManager>();
+        PlayerShoot = GameObject.FindGameObjectWithTag("PlayerWeapon").GetComponent<Shoot>();
+        PlayerCollision = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCollision>();
     }
 	
 	// Update is called once per frame
 	void LateUpdate() {
-        Debug.Log(btn_LimpaTela.color);
         if(Powerup[0]) {
             Color CorPadraoA = btn_LimpaTela.color;
             CorPadraoA.a = .7f;
@@ -76,55 +84,36 @@ public class PowerUpManager : MonoBehaviour {
     {
         if (Powerup[0])
         {
-            StartCoroutine("LimpaTela");
+            EnergyBlaster.SetActive(true);
             Powerup[0] = false;
         }
-    }
-
-    IEnumerator LimpaTela()
-    {
-        yield return new WaitForSeconds(.1f);
     }
 
     void TriggerEscudo()
     {
         if (Powerup[1])
         {
-            StartCoroutine("Escudo");
+            Shield.SetActive(true);
             Powerup[1] = false;
         }
-    }
-
-    IEnumerator Escudo()
-    {
-        yield return new WaitForSeconds(.1f);
     }
 
     void TriggerTiroInfinito()
     {
         if (Powerup[2])
         {
-            StartCoroutine("TiroInfinito");
+            PlayerShoot.SendMessage("TriggerInfiniteShoot");
             Powerup[2] = false;
         }
-    }
-
-    IEnumerator TiroInfinito()
-    {
-        yield return new WaitForSeconds(.1f);
     }
 
     void TriggerBoost()
     {
         if (Powerup[3])
         {
-            StartCoroutine("Boost");
+            PlayerCollision.SendMessage("TriggerPowerUpBoost");
+            Gerenciador.SendMessage("BoostSpeedTrigger");
             Powerup[3] = false;
         }
-    }
-
-    IEnumerator Boost()
-    {
-        yield return new WaitForSeconds(.1f);
     }
 }
