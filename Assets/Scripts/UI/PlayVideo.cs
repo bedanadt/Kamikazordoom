@@ -8,10 +8,12 @@ public class PlayVideo : MonoBehaviour {
 
     public string VideoName;
 
+#if UNITY_EDITOR
     public MovieTexture movie;
     private AudioSource audio;
-	// Use this for initialization
-	void Start () {
+#endif
+    // Use this for initialization
+    void Start () {
 #if UNITY_ANDROID
         StartCoroutine("PlayVideoRoutine");
 #endif
@@ -24,6 +26,17 @@ public class PlayVideo : MonoBehaviour {
 #endif
     }
 
+    IEnumerator PlayVideoRoutine()
+    {
+        Handheld.PlayFullScreenMovie(VideoName, Color.black, FullScreenMovieControlMode.Hidden);
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        if (LoadLevel) {
+            Application.LoadLevel(LevelName);
+        }
+    }
+
+#if UNITY_EDITOR
     IEnumerator PlayMyClip()
     {
         if (!movie.isPlaying)
@@ -37,14 +50,5 @@ public class PlayVideo : MonoBehaviour {
             }
         }
     }
-
-    IEnumerator PlayVideoRoutine()
-    {
-        Handheld.PlayFullScreenMovie(VideoName, Color.black, FullScreenMovieControlMode.Hidden);
-        yield return new WaitForEndOfFrame();
-        yield return new WaitForEndOfFrame();
-        if (LoadLevel) {
-            Application.LoadLevel(LevelName);
-        }
-    }
+#endif
 }
