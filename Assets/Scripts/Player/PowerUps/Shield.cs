@@ -6,13 +6,11 @@ public class Shield : MonoBehaviour {
     private float VencimentoEscudo;
 
     private GameManager Gerenciador;
-    private Transform PlayerPosition;
 
     [SerializeField]
     private BoxCollider2D PlayerCollider;
 	// Use this for initialization
 	void Start () {
-        PlayerPosition = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         Gerenciador = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 	
@@ -28,7 +26,7 @@ public class Shield : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        this.transform.position = PlayerPosition.position;
+        this.transform.position = GameManager.m_PlayerMovimentacao.position;
         if (Time.time >= VencimentoEscudo)
         {
             gameObject.SetActive(false);

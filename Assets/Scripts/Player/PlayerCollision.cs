@@ -5,28 +5,13 @@ public class PlayerCollision : MonoBehaviour {
 
 	private GameManager Gerenciador;
 
-    private bool ImortalPW = false;
-    private float TimeImortal = 5f;
-    private float TimeImortalDisable;
+    public bool ImortalPW = false;
 
     private float Timer = 0f;
 	// Use this for initialization
 	void Start () {
 		Gerenciador = GameObject.Find("GameManager").GetComponent<GameManager>();
 	}
-
-    void Update()
-    {
-        if (ImortalPW)
-        {
-            Timer += Time.deltaTime;
-            if (Timer >= TimeImortal)
-            {
-                ImortalPW = false;
-                Timer = 0;
-            }
-        }
-    }
 
 	void OnCollisionEnter2D(Collision2D collision)
 	{
@@ -43,11 +28,6 @@ public class PlayerCollision : MonoBehaviour {
 
     void OnDestroy()
     {
-        Gerenciador.SendMessage("EMorreu");
-    }
-
-    void TriggerPowerUpBoost()
-    {
-        ImortalPW = true;
+        if (Gerenciador) Gerenciador.SendMessage("EMorreu");
     }
 }

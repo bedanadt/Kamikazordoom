@@ -4,14 +4,11 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
     public float m_scrollvelocity = 3f;
     public GameObject explosion;
-	private Vector3 MoveFront;
-	private Transform m_PlayerMovimentacao;
-	private Transform m_CameraMovimentacao;
+	public Vector3 MoveFront;
+	public static Transform m_PlayerMovimentacao;
+	public static Transform m_CameraMovimentacao;
 
-    private bool Boosted = false;
-    private float BoostedSpeed = 2f;
     private float TimeBoosted;
-    private float TimeBoostedOff = 5;
 
     private float bossState;
 
@@ -32,41 +29,28 @@ public class GameManager : MonoBehaviour {
 
 		m_PlayerMovimentacao = GameObject.FindGameObjectWithTag ("Player").GetComponent<Transform> ();
 		m_CameraMovimentacao = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<Transform> ();
-        MoveFront = new Vector3(m_scrollvelocity, 0, 0);
+        //MoveFront = new Vector3(m_scrollvelocity, 0, 0);
 	}
-	
+
     void Update()
     {
-        if (Boosted && Time.time > TimeBoostedOff)
+        if (BossReached())
         {
-            Boosted = false;
+            m_scrollvelocity = 0f;
+            Boss.GetComponent<SineMovement>().enabled = true;
+            Boss.GetComponent<Core>().enabled = true;
         }
     }
 
 	// Update is called once per frame
 	void FixedUpdate () {
-        if (transform_spawners) transform_spawners.Translate(new Vector3(-m_scrollvelocity, 0, 0) * Time.deltaTime);
+        if (m_PlayerMovimentacao) m_PlayerMovimentacao.Translate(m_scrollvelocity * Time.deltaTime, 0, 0);
+        if (m_CameraMovimentacao) m_CameraMovimentacao.Translate(m_scrollvelocity * Time.deltaTime, 0, 0);
 
-        if (Boosted)
-        {
-            m_PlayerMovimentacao.Translate(MoveFront * BoostedSpeed * Time.deltaTime);
-            m_CameraMovimentacao.Translate(MoveFront * BoostedSpeed * Time.deltaTime);
-        }
-        else
-        {
-            m_PlayerMovimentacao.Translate(MoveFront * Time.deltaTime);
-            m_CameraMovimentacao.Translate(MoveFront * Time.deltaTime);
-        }
-        //if (m_EnergyBlaster) m_EnergyBlaster.Translate(MoveFront * Time.deltaTime); 
         if (!playerAlive)
         {
             Application.LoadLevel("Gameplay");
         }
-		if (m_CameraPosition.xMin > Boss.transform.position.x - 15) {
-			MoveFront = Vector3.zero;
-			Boss.GetComponent<SineMovement>().enabled = true;
-			Boss.GetComponent<Core>().enabled = true;
-		}
     }
 
 	void LateUpdate() {
@@ -79,15 +63,14 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-    void EMorreu()
-    {
-        playerAlive = false;
+    public bool BossReached() {
+        if (m_CameraPosition.xMax > Boss.transform.position.x + 5) return true;
+        else return false;
     }
 
-    void BoostSpeedTrigger()
+void EMorreu()
     {
-        Boosted = true;
-        TimeBoostedOff = Time.time + TimeBoosted;
+        playerAlive = false;
     }
 
     public static GameObject GetExplosion()

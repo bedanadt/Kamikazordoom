@@ -39,6 +39,11 @@ public class Core : MonoBehaviour {
             Laser.SetActive(true);
             State = 4;
         }
+
+        if (GameObject.FindGameObjectsWithTag("BossGenerator").Length == 0)
+        {
+            Debug.Log("You");
+        }
 	}
 
     void Reset ()

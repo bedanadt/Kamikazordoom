@@ -11,7 +11,7 @@ public class PowerUpManager : MonoBehaviour {
     [SerializeField]
     private GameObject Shield;
 
-    private GameManager Gerenciador;
+    private Boost BoostPlayer;
     private Shoot PlayerShoot;
     private PlayerCollision PlayerCollision;
 
@@ -32,9 +32,29 @@ public class PowerUpManager : MonoBehaviour {
         btn_TiroInfinito = GameObject.Find("btn_PowerUp_2").GetComponent<Image>();
         btn_Boost = GameObject.Find("btn_PowerUp_3").GetComponent<Image>();
 
-        Gerenciador = GameObject.Find("GameManager").GetComponent<GameManager>();
         PlayerShoot = GameObject.FindGameObjectWithTag("PlayerWeapon").GetComponent<Shoot>();
         PlayerCollision = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCollision>();
+        BoostPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Boost>();
+    }
+
+    void Update()
+    {
+        if (Input.GetButtonDown("PowerUp1"))
+        {
+            TriggerLimpaTela();
+        }
+        if (Input.GetButtonDown("PowerUp2"))
+        {
+            TriggerEscudo();
+        }
+        if (Input.GetButtonDown("PowerUp3"))
+        {
+            TriggerTiroInfinito();
+        }
+        if (Input.GetButtonDown("PowerUp4"))
+        {
+            TriggerBoost();
+        }
     }
 	
 	// Update is called once per frame
@@ -111,8 +131,7 @@ public class PowerUpManager : MonoBehaviour {
     {
         if (Powerup[3])
         {
-            PlayerCollision.SendMessage("TriggerPowerUpBoost");
-            Gerenciador.SendMessage("BoostSpeedTrigger");
+            BoostPlayer.SendMessage("BoostSpeedTrigger");
             Powerup[3] = false;
         }
     }

@@ -6,11 +6,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     public Vector2 speed = new Vector2(10, 10);
     public float scrollingspeed = 3f;
-    private Vector2 movement;
+    public Vector2 movement;
     private Rigidbody2D m_Rigidbody;
 
-    float inputX;
-    float inputY;
+    private float inputX;
+    private float inputY;
 
     private CameraMovement m_Camera;
 
@@ -56,7 +56,6 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         m_Rigidbody.velocity = movement;
-
     }
 }
 
