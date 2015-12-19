@@ -12,7 +12,6 @@ public class PlayerColorChange : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Boost.Boosted);
         anim.SetBool("isBoosted", Boost.Boosted);
     }
 }
