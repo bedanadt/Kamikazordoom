@@ -28,6 +28,6 @@ public class PlayerCollision : MonoBehaviour {
 
     void OnDestroy()
     {
-        if (Gerenciador) Gerenciador.SendMessage("EMorreu");
+        GameManager.PlayerIsAlive = false;
     }
 }

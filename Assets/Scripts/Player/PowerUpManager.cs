@@ -39,21 +39,24 @@ public class PowerUpManager : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetButtonDown("PowerUp1"))
+        if (!PauseMenu.isPaused)
         {
-            TriggerLimpaTela();
-        }
-        if (Input.GetButtonDown("PowerUp2"))
-        {
-            TriggerEscudo();
-        }
-        if (Input.GetButtonDown("PowerUp3"))
-        {
-            TriggerTiroInfinito();
-        }
-        if (Input.GetButtonDown("PowerUp4"))
-        {
-            TriggerBoost();
+            if (Input.GetButtonDown("PowerUp1"))
+            {
+                TriggerLimpaTela();
+            }
+            if (Input.GetButtonDown("PowerUp2"))
+            {
+                TriggerEscudo();
+            }
+            if (Input.GetButtonDown("PowerUp3"))
+            {
+                TriggerTiroInfinito();
+            }
+            if (Input.GetButtonDown("PowerUp4"))
+            {
+                TriggerBoost();
+            }
         }
     }
 	

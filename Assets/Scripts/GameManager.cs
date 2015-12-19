@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
+    public static bool PlayerIsAlive = true;
+
     public float m_scrollvelocity = 3f;
     public GameObject explosion;
 	public Vector3 MoveFront;
@@ -24,7 +26,7 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
 		m_CameraPosition = Camera.main.GetComponent<CameraMovement> ();
-		Boss = GameObject.FindGameObjectWithTag ("Boss");
+        Boss = GameObject.FindGameObjectWithTag ("Boss");
 		Enemy = GameObject.FindGameObjectsWithTag ("Enemy");
 
 		m_PlayerMovimentacao = GameObject.FindGameObjectWithTag ("Player").GetComponent<Transform> ();
@@ -44,12 +46,10 @@ public class GameManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
-        if (m_PlayerMovimentacao) m_PlayerMovimentacao.Translate(m_scrollvelocity * Time.deltaTime, 0, 0);
-        if (m_CameraMovimentacao) m_CameraMovimentacao.Translate(m_scrollvelocity * Time.deltaTime, 0, 0);
-
-        if (!playerAlive)
+        if (PlayerIsAlive)
         {
-            Application.LoadLevel("Gameplay");
+            if (m_PlayerMovimentacao) m_PlayerMovimentacao.Translate(m_scrollvelocity * Time.deltaTime, 0, 0);
+            if (m_CameraMovimentacao) m_CameraMovimentacao.Translate(m_scrollvelocity * Time.deltaTime, 0, 0);
         }
     }
 
@@ -66,11 +66,6 @@ public class GameManager : MonoBehaviour {
     public bool BossReached() {
         if (m_CameraPosition.xMax > Boss.transform.position.x + 5) return true;
         else return false;
-    }
-
-void EMorreu()
-    {
-        playerAlive = false;
     }
 
     public static GameObject GetExplosion()

@@ -4,62 +4,33 @@ using UnityEngine;
 
 public class ScreenManager : Singleton<ScreenManager>
 {
-    private FadeTransition m_FadeTransition;
-    private Stack<string> m_StackScenes;
+    public string GameName;
+
+    public string CreditsName;
+
+    void Awake()
+    {
+        Time.timeScale = 1;
+        AudioListener.pause = false;
+    }
 
     void Start()
     {
-        m_FadeTransition = FadeTransition.Instance;
-        m_StackScenes = new Stack<string>();
+        Time.timeScale = 1;
+        AudioListener.pause = false;
+    }
+    public void LoadGame()
+    {
+        Application.LoadLevelAsync(GameName);
     }
 
-    public void LoadPreviousLevel()
+    public void Credits()
     {
-        string previousLevel = m_StackScenes.Pop();
-        LoadLevel(previousLevel, true);
-    }
-
-    public void LoadLevel(string sceneNameToLoad)
-    {
-        LoadLevel(sceneNameToLoad, false);
-    }
-
-    private void LoadLevel(string sceneNameToLoad, bool previousScene)
-    {
-        if (!previousScene)
-        {
-            m_StackScenes.Push(Application.loadedLevelName);
-            Debug.Log("Previous Level: " + Application.loadedLevelName);
-        }
-
-        StartCoroutine("Loading", sceneNameToLoad);
-    }
-
-    IEnumerator Loading(string name)
-    {
-        yield return new WaitForSeconds(m_FadeTransition.BeginFade(FadeDirection.Out));
-
-        if (!name.Equals("Quit"))
-        {
-            Application.LoadLevel(name);
-        }
-        else
-        {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
-        }
+        Application.LoadLevelAsync(CreditsName);
     }
 
     public void Quit()
     {
-        StartCoroutine("Loading", "Quit");
-    }
-
-    public void Pause()
-    {
-        Time.timeScale = 1.0f - Time.timeScale;
+        Application.Quit();
     }
 }

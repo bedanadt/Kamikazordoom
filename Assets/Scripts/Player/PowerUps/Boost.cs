@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Boost : MonoBehaviour {
-    private bool Boosted = false;
+    public static bool Boosted = false;
     private float BoostedSpeed = 2f;
     private float TimeBoosted;
     private float TimeBoostedOff = 5f;

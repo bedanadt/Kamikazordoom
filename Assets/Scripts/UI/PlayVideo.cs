@@ -7,7 +7,6 @@ public class PlayVideo : MonoBehaviour {
     public string LevelName;
 
     public string VideoName;
-
 #if UNITY_EDITOR
     public MovieTexture movie;
     private AudioSource audio;
@@ -31,7 +30,9 @@ public class PlayVideo : MonoBehaviour {
         Handheld.PlayFullScreenMovie(VideoName, Color.black, FullScreenMovieControlMode.Hidden);
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
-        if (LoadLevel) {
+        if (LoadLevel)
+        {
+            GameManager.PlayerIsAlive = true;
             Application.LoadLevel(LevelName);
         }
     }
@@ -46,6 +47,7 @@ public class PlayVideo : MonoBehaviour {
             yield return new WaitForSeconds(movie.duration);
             if (LoadLevel)
             {
+                GameManager.PlayerIsAlive = true;
                 Application.LoadLevel(LevelName);
             }
         }
