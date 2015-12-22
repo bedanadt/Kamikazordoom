@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
         inputY = Input.acceleration.y * 2;
 #endif
 
-#if UNITY_EDITOR
+#if UNITY_STANDALONE
         inputX = Input.GetAxis("Horizontal");
         inputY = Input.GetAxis("Vertical");
 #endif

@@ -7,7 +7,7 @@ public class PlayVideo : MonoBehaviour {
     public string LevelName;
 
     public string VideoName;
-#if UNITY_EDITOR
+#if UNITY_STANDALONE
     public MovieTexture movie;
     private AudioSource audio;
 #endif
@@ -17,7 +17,7 @@ public class PlayVideo : MonoBehaviour {
         StartCoroutine("PlayVideoRoutine");
 #endif
 
-#if UNITY_EDITOR
+#if UNITY_STANDALONE
         GetComponent<RawImage>().texture = movie as MovieTexture;
         audio = GetComponent<AudioSource>();
         audio.clip = movie.audioClip;
@@ -25,6 +25,7 @@ public class PlayVideo : MonoBehaviour {
 #endif
     }
 
+#if UNITY_ANDROID
     IEnumerator PlayVideoRoutine()
     {
         Handheld.PlayFullScreenMovie(VideoName, Color.black, FullScreenMovieControlMode.Hidden);
@@ -36,8 +37,9 @@ public class PlayVideo : MonoBehaviour {
             Application.LoadLevel(LevelName);
         }
     }
+#endif
 
-#if UNITY_EDITOR
+#if UNITY_STANDALONE
     IEnumerator PlayMyClip()
     {
         if (!movie.isPlaying)
