@@ -13,8 +13,7 @@ public class GameOverMenu : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (!GameManager.PlayerIsAlive)
-        {
+        if (!GameManager.PlayerIsAlive) {
             GameOverMenuCanvas.SetActive(true);
             Time.timeScale = 0.5f;
             AudioListener.volume = 0.5f;
@@ -24,8 +23,7 @@ public class GameOverMenu : MonoBehaviour {
                 Selected = true;
             }
         }
-        else
-        {
+        else {
             GameOverMenuCanvas.SetActive(false);
             Selected = false;
         }

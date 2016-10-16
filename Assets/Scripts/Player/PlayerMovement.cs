@@ -27,19 +27,16 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-#if UNITY_ANDROID
-        inputX = Input.acceleration.x * 2;
-        inputY = Input.acceleration.y * 2;
-#endif
-
-#if UNITY_STANDALONE
-        inputX = Input.GetAxis("Horizontal");
-        inputY = Input.GetAxis("Vertical");
-#endif
-
-
+    void Update() {
+        #if UNITY_ANDROID
+                inputX = Input.acceleration.x * 2;
+                inputY = Input.acceleration.y * 2;
+        #endif
+        
+        #if UNITY_STANDALONE
+                inputX = Input.GetAxis("Horizontal");
+                inputY = Input.GetAxis("Vertical");
+        #endif
 
         if ((transform.position.x < m_Camera.xMin && inputX < 0) || (transform.position.x > m_Camera.xMax && inputX > 0))
         {
@@ -53,8 +50,7 @@ public class PlayerMovement : MonoBehaviour
         movement = new Vector2((speed.x * inputX), speed.y * inputY);
     }
 
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
         m_Rigidbody.velocity = movement;
     }
 }

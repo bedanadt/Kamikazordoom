@@ -36,29 +36,6 @@ public class PowerUpManager : MonoBehaviour {
         PlayerCollision = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCollision>();
         BoostPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Boost>();
     }
-
-    void Update()
-    {
-        if (!PauseMenu.isPaused)
-        {
-            if (Input.GetButtonDown("PowerUp1"))
-            {
-                TriggerLimpaTela();
-            }
-            if (Input.GetButtonDown("PowerUp2"))
-            {
-                TriggerEscudo();
-            }
-            if (Input.GetButtonDown("PowerUp3"))
-            {
-                TriggerTiroInfinito();
-            }
-            if (Input.GetButtonDown("PowerUp4"))
-            {
-                TriggerBoost();
-            }
-        }
-    }
 	
 	// Update is called once per frame
 	void LateUpdate() {

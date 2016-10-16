@@ -15,7 +15,7 @@ public class PlayerCollision : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (collision.gameObject.tag == "Enemy")
+		if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Boss")
 		{
 			Instantiate(Gerenciador.explosion, collision.transform.position, transform.rotation);
             Destroy(collision.gameObject);

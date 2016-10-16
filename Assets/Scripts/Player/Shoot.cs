@@ -48,12 +48,7 @@ public class Shoot : MonoBehaviour {
         if (!PauseMenu.isPaused)
         {
             Municao.value = Ammunition;
-            if (Input.GetButton("Fire1"))
-            {
-                isShooting = true;
-            }
-            if (isShooting && Time.time > nextFire && CanShoot && Ammunition > 0)
-            {
+            if (isShooting && Time.time > nextFire && CanShoot && Ammunition > 0) {
                 ChargingRateGenerated = false;
                 GameObject clone = Instantiate(m_Bala, transform.position, transform.rotation) as GameObject;
                 Ammunition--;
@@ -65,12 +60,7 @@ public class Shoot : MonoBehaviour {
                     CooldownExhaustedTime = Time.time + CooldownExhausted;
                 }
             }
-            if (Input.GetButtonUp("Fire1"))
-            {
-                isShooting = false;
-            }
-            if (!isShooting && CanShoot)
-            {
+            if (!isShooting && CanShoot) {
                 if (Time.time > GenericTimer)
                 {
                     if (Time.time > ReloadRate && Ammunition <= totalAmmunition)

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -21,10 +22,8 @@ public class PauseMenu : MonoBehaviour {
     // Update is called once per frame
     void Start ()
     {
-#if UNITY_ANDROID
         PauseButton.SetActive(true);
         ResumeButton.SetActive(true);
-#endif
     }
 
     void Update () {
@@ -66,7 +65,7 @@ public class PauseMenu : MonoBehaviour {
     public void Quit()
     {
         Time.timeScale = 1;
-        Application.LoadLevel(mainMenu);
+        SceneManager.LoadSceneAsync(mainMenu);
     }
 
 }
